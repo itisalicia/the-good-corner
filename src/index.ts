@@ -42,7 +42,6 @@ app.post("/categories", async (req, res) => {
 	res.status(201).send("category has been created");
 });
 
-
 app.get("/ads", async (_req, res) => {
 	const allAds = await Ad.find();
 	res.send(allAds);
@@ -78,4 +77,10 @@ app.put("/ads/:id", async (req, res) => {
 app.listen(port, async () => {
 	console.log(`Example app listening on port ${port}`);
 	await dataSource.initialize();
+	const categories = await Category.find();
+	if (categories.length === 0) {
+		const misc = new Category();
+		misc.title = "misc";
+		await misc.save();
+	}
 });
