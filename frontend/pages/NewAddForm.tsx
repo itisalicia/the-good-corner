@@ -1,5 +1,5 @@
-import React from "react";
 import axios from "axios";
+import "./NewAddForm.css";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
@@ -36,8 +36,8 @@ function NewAddForm() {
 	const {
 		register,
 		handleSubmit,
-		watch,
-		formState: { errors },
+		// watch,
+		// formState: { errors },
 	} = useForm<Inputs>();
 	const onSubmit: SubmitHandler<Inputs> = async (data) =>
 		await axios.post("http://localhost:3000/ads", data);
@@ -45,31 +45,41 @@ function NewAddForm() {
 	return (
 		//-------------- AVEC UTILISATION DE REACT HOOK FORM ---------------
 
-		<form onSubmit={handleSubmit(onSubmit)}>
+		<form onSubmit={handleSubmit(onSubmit)} className="new-add-form">
 			<label>
 				Titre de l'annonce :
 				<input
+					className="text-area"
 					defaultValue="Appartement"
 					{...register("title", { required: true })}
 				/>
 			</label>
 			<br />
 			<label>
+				{" "}
+				Nom du vendeur :
 				<input
+					className="text-area"
 					defaultValue="Jane Doe"
 					{...register("owner", { required: true })}
 				/>
 			</label>
 			<br />
 			<label>
+				{" "}
+				Description de l'annonce :
 				<input
+					className="text-area"
 					defaultValue="Appartement de 50m2"
 					{...register("description", { required: true })}
 				/>
 			</label>
 			<br />
 			<label>
+				{" "}
+				Prix :
 				<input
+					className="text-area"
 					type="number"
 					defaultValue="700"
 					{...register("price", { required: true })}
@@ -77,24 +87,36 @@ function NewAddForm() {
 			</label>
 			<br />
 			<label>
+				{" "}
+				Date de création :
 				<input
+					className="text-area"
 					defaultValue="26/03/2025"
 					{...register("date", { required: true })}
 				/>
 			</label>
 			<br />
 			<label>
+				{" "}
+				Image de l'annonce :
 				<input
+					className="text-area"
 					defaultValue="https://www.jaimefruitsetlegumes.ca/wp-content/uploads/2019/09/framboises-scaled-e1644263837892.jpg"
 					{...register("img", { required: true })}
 				/>
 			</label>
 			<br />
 			<label>
-				<input defaultValue="Lille" {...register("city", { required: true })} />
+				{" "}
+				Localisation :
+				<input
+					className="text-area"
+					defaultValue="Lille"
+					{...register("city", { required: true })}
+				/>
 			</label>
 			<br />
-			<select name="category">
+			<select name="category" className="category-area">
 				{categories.map((category: category) => (
 					<option key={category.id} value={category.id}>
 						{category.title}
@@ -102,7 +124,7 @@ function NewAddForm() {
 				))}
 			</select>
 
-			<input type="submit" />
+			<input type="submit" className="new-form-btn" />
 		</form>
 
 		// -------------- SANS UTILISATION DE REACT HOOK FORM ----------------
